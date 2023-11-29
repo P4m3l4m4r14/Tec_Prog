@@ -1,5 +1,6 @@
 package controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import Model.Gravar;
@@ -9,27 +10,45 @@ public class ComputadorDados {
 	
 	private ArrayList<Aluno> alunos = new ArrayList<Aluno>();
 	private ArrayList<String[]> dados = new ArrayList<String[]>();
-	private String arquivoDeSaida = pergunta1()+ pergunta2()+pergunta3()+pergunta4()+pergunta5()
-						+pergunta6()+pergunta7()+pergunta8()+pergunta9()+pergunta10()+pergunta11();
+	private LerDadosBanco leitura = new LerDadosBanco();
 	
-	public ComputadorDados() {
-		LerDadosBanco leitura = new LerDadosBanco(dados,alunos);
+	public void lerDadosParticipantes() {
 		dados = leitura.LerDados();	
 	}
 
 	//Perguntas
 	//1
-	private String pergunta1() {
-		int instantes = 0;
-		String nome = new String();
-		String matricula = new String();
+	
+	private Aluno adicionarAlunos(String nome, String matricula) {
 		for(Aluno a : alunos) {
-			if(a.NAnalises > instantes) {
-				instantes = a.NAnalises;
+			if(nome != a.getNome()) {
+				return a;
+			}
+		}
+		Aluno a = new Aluno(nome,matricula);
+		alunos.add(a);	
+		return a;
+	}
+	
+	private String pergunta1() {
+		String matricula = new String();
+		String nome = new String();
+		int op = 0;
+		
+		for(String[] d : dados) {
+			adicionarAlunos(d[0], d[1]).NAnalises++;
+			
+		}
+		
+		for(Aluno a: alunos) {
+			if(a.NAnalises > op) {
+				op = a.NAnalises;
 				nome = a.nome;
 				matricula = a.matricula;
 			}
 		}
+
+		System.out.println(matricula +" - "+ nome +", ");
 		return matricula +" - "+ nome +", ";
 	}
 	private String pergunta2() {
@@ -118,7 +137,7 @@ public class ComputadorDados {
 		
 		for(String[] d : dados) {
 			for(int i = 39 ; i < 43 ; i++) {
-				media[i-34] = (media[i-34]+ Integer.parseInt(d[i]))/2;
+				media[i-39] = (media[i-39]+ Integer.parseInt(d[i]))/2;
 			}
 		}
 		int op = 0 ;
@@ -136,7 +155,7 @@ public class ComputadorDados {
 		
 		for(String[] d : dados) {
 			for(int i = 43 ; i < 46 ; i++) {
-				media[i-38] = (media[i-38]+ Integer.parseInt(d[i]))/2;
+				media[i-43] = (media[i-43]+ Integer.parseInt(d[i]))/2;
 			}
 		}
 		int op = 0 ;
@@ -166,10 +185,11 @@ public class ComputadorDados {
 				vMedia[i-18] = (vMedia[i-18] + Integer.parseInt(d[i]))/2;
 			}
 		}
-		resposta = "Python: "+ String.valueOf(vMedia[0]) + " - JavaScript: " + String.valueOf(vMedia[1]) 
-					+ " - Ruby on Rails:" + String.valueOf(vMedia[2]) + " - PHP: " + String.valueOf(vMedia[3]) 
-					+ " - C#: " + String.valueOf(vMedia[4]) + " - C++: " + String.valueOf(vMedia[5]) + " - C: " 
-					+ String.valueOf(vMedia[6]);
+		DecimalFormat formato = new DecimalFormat("#.##");
+		resposta = "Python: "+ formato.format(vMedia[0]) + " - JavaScript: " + formato.format(vMedia[1]) 
+					+ " - Ruby on Rails:" + formato.format(vMedia[2]) + " - PHP: " +formato.format(vMedia[3]) 
+					+ " - C#: " + formato.format(vMedia[4]) + " - C++: " + formato.format(vMedia[5]) + " - C: " 
+					+ formato.format(vMedia[6]);
 	
 		return resposta + ", ";
 	}
@@ -184,7 +204,7 @@ public class ComputadorDados {
 	private String pergunta9() {
 		int totalDevs = 0;
 		for(String[] d : dados) {
-			for(int i = 42 ; i < 47 ; i++)
+			for(int i = 42 ; i < 46 ; i++)
 				totalDevs +=  Integer.parseInt(d[i]);
 		}
 		return String.valueOf(totalDevs) + ", ";
@@ -208,6 +228,10 @@ public class ComputadorDados {
 	
 	public void gravarArquivo() {
 		Gravar gravar = new Gravar();
+		String arquivoDeSaida = new String();
+		arquivoDeSaida = pergunta1()+ pergunta2()+pergunta3()+pergunta4()+pergunta5()
+						+pergunta6()+pergunta7()+pergunta8()+pergunta9()+pergunta10()+pergunta11()+"\n";
+		System.out.println(arquivoDeSaida);
 		gravar.gravarDados("dados/ArquivoDeSaida", arquivoDeSaida);
 	}
 	

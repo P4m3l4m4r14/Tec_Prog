@@ -8,8 +8,6 @@ import controller.Sistema;
 
 public class ConectarBanco {
 	
-	private String nome;
-	private int matricula;
 	private static String host;
 	private static String usuario;
 	private static String senha;

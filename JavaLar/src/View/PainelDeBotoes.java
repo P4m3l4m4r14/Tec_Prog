@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controller.ComputadorDados;
@@ -23,7 +24,7 @@ public class PainelDeBotoes extends JPanel{
 	private JButton B5 = new JButton("Gravar arquivo de saida");
 	private int instante = 0;
 	private PainelDosPlanetas p = new PainelDosPlanetas();
-	private ComputadorDados cd;
+	private ComputadorDados cd = new ComputadorDados();
 	
 
 	public PainelDeBotoes(PainelDosPlanetas p) {
@@ -83,7 +84,8 @@ public class PainelDeBotoes extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				cd = new ComputadorDados();
+				cd.lerDadosParticipantes();
+				JOptionPane.showMessageDialog(null, "Dados Lidos!", "Aviso!", JOptionPane.INFORMATION_MESSAGE, null);
 				System.out.println("Ler dados de outros participantes");
 			}
 		});
@@ -91,9 +93,10 @@ public class PainelDeBotoes extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Gravar arquivo de saida");
-				cd.gravarArquivo();
 				
+				cd.gravarArquivo();
+				JOptionPane.showMessageDialog(null, "Arquivo Gravado!", "Aviso!", JOptionPane.INFORMATION_MESSAGE, null);
+				System.out.println("Gravar arquivo de saida");
 			}
 		});
 	}

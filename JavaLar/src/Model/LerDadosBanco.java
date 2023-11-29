@@ -5,18 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
-import controller.Aluno;
 
 public class LerDadosBanco {
 	private ArrayList<String[]> dados = new ArrayList<String[]>();
-	private ArrayList<Aluno> alunos = new ArrayList<Aluno>();
-	
-	
-	public LerDadosBanco(ArrayList<String[]> dados, ArrayList<Aluno> alunos) {
-		this.dados = dados;
-		this.alunos = alunos;
-	}
 
 	public ArrayList<String[]> LerDados() {
 		Connection conexao = new ConectarBanco().getConectarBanco();
@@ -26,20 +19,18 @@ public class LerDadosBanco {
 			ResultSet rs = selecionar.executeQuery();	
 			
 			while(rs.next()) {
-				String[] dados = new String[46];
+				String[] dados = new String[47];
 				
 				dados[0] = rs.getString("nome");
 				
 				dados[1] = rs.getString("matricula");
 				
-				Aluno a = consultar(dados[0], dados[1]);
-				
 				dados[2] = rs.getString("nome_arquivo");
 				
-				for(int i = 3 ; i < 46 ; i++) {
-					dados[i] = String.valueOf(rs.getObject(i+1));
+				for(int i = 5 ; i <= 47 ; i++) {
+					dados[i-2] = String.valueOf(rs.getInt(i));
 				}
-				System.out.println(dados);
+				//imprimirLinha(dados);
 				this.dados.add(dados);
 			}
 		
@@ -48,22 +39,13 @@ public class LerDadosBanco {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return dados;
+		return this.dados;
+	}
+
+	public void imprimirLinha(String[] linha) {
+		for(int i = 0; i < linha.length;i++) {
+			System.out.println(linha[i]);
+		}
 	}
 	
-	public Aluno consultar(String nome,String matricula) {
-		for(Aluno a : alunos) {
-			if(matricula == a.getMatricula()) {
-				int op = a.getNAnalises();
-				a.setNAnalises(op++);
-				return a;
-			}
-		}
-		Aluno a = new Aluno(nome,matricula);
-		int op = a.getNAnalises();
-		a.setNAnalises(op++);
-		alunos.add(a);
-		return a;
-		
-	}
 }

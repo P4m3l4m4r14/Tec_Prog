@@ -199,14 +199,15 @@ public class Sistema {
 	
 	private void colidirBug() {
 		for(Planeta planeta : planetas) {
-			if(planeta.verificarExistencia())
 				for(int i = 0; i < bugs.size() ; i++) {
 					if ( bugs.get(i).posicaoY == planeta.posicaoY && bugs.get(i).posicaoX == planeta.posicaoX) {
+						if(planeta.verificarExistencia()) {
 						planeta.vTranslacao--;
 						planeta.NBug++;
 						this.bugsColididos++;
 						bugs.remove(bugs.get(i));
 						Nbugs--;
+						}
 					}
 				}
 		}
