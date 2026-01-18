@@ -1,59 +1,46 @@
-JavaLar 🪐
-JavaLar is a gravitational system simulation where the laws of physics meet the world of software development. Developed as a final project for the Object-Oriented Programming (OOP) Techniques course, this system replaces traditional celestial bodies with programming languages orbiting a central "Java" sun.
+# JavaLar System 🪐
+JavaLar is a graphical simulation of a planetary system developed purely in Java. In this unique universe, the Java language sits at the center like a sun, and other programming languages orbit around it as planets.
 
-🌌 The Concept
-In the JavaLar ecosystem, planets move in square orbits and interact with two types of entities that randomly appear in the space:
+This project was created for the Object-Oriented Programming Techniques course, focusing on applying OOP principles to manage complex interactions, collision detection, and orbital physics.
 
-Bugs 🐛: When a planet collides with a Bug, it loses movement speed.
+## 📄 About the Project
+The goal of JavaLar is to simulate a solar system with a twist:
 
-Devs 👨‍💻: When a planet collides with a Developer, it gains a speed boost.
+The Center: Java is the central star.
 
-Explosion 💥: Each planet has its own unique orbital speed. If a planet's speed reaches 0, it is destroyed and removed from the system.
+The Planets: Other programming languages (e.g., C++, Python, PHP) orbit Java.
 
-🚀 Technical Features
-Full-Stack Java: Entirely developed using Java, covering backend logic and frontend interface.
+The Orbit: Unlike real physics, these planets follow a Square Orbit trajectory.
 
-OOP Focused: Heavy use of encapsulation, inheritance, polymorphism, and abstraction to manage different planet behaviors and celestial interactions.
+Persistence: The simulation state and event logs are stored in a database.
 
-Database Integration: The system connects to a database to persist simulation data, logs, or user progress.
+## 🌌 Simulation Mechanics & Rules
+The system mimics a living ecosystem with specific rules for survival and movement:
 
-Square Orbit Algorithm: A custom mathematical implementation to handle movement across a grid-based square trajectory rather than a circular one.
+### 1. Square Orbits 🔲
+Planets do not move in circles or ellipses. They follow a strict coordinate-based square path around the center. This required a custom algorithm to calculate positions based on the planet's translation speed and the quadrant it occupies.
 
-🛠️ Technologies Used
-Language: Java
+### 2. Events & Collisions 💥
+Random entities appear in the universe, affecting the planets based on their grid position:
 
-Paradigm: Object-Oriented Programming (OOP)
+🐛 Bugs: If a planet collides with a Bug, its speed decreases.
 
-Database: [Insert your DB here, e.g., MySQL / PostgreSQL]
+👨‍💻 Developers (Devs): If a planet collides with a Dev, its speed increases (optimization).
 
-GUI: [Insert library here, e.g., JavaFX / Swing]
+### 3. Life & Death ☠️
+Each planet starts with a specific rotation and translation speed.
 
-📁 Project Structure
-src/models: Contains the base classes for Planets, Bugs, and Devs.
+If a planet's speed drops to 0 (due to too many bugs), it explodes and is removed from the simulation.
 
-src/logic: Handles the orbital mechanics and collision detection.
+The system tracks active and destroyed planets in real-time.
 
-src/view: The graphical user interface (GUI) implementation.
+## 🛠️ Technologies Used
+Language: Java (100% pure Java for Backend, Frontend, and Logic).
 
-src/database: Connection and Persistence logic.
+Paradigm: Object-Oriented Programming (OOP).
 
-🎮 How to Run
-Clone the repository:
+Database: MySQL.
 
-Bash
+GUI: Java Swing.
 
-git clone https://github.com/your-username/javalar.git
-Setup the Database:
-
-Import the provided .sql schema.
-
-Update the database credentials in the configuration file.
-
-Compile and Run:
-
-Open the project in your preferred IDE (IntelliJ, Eclipse, or NetBeans).
-
-Run the Main.java file.
-
-🎓 Academic Context
-This project was developed as a practical application of OOP concepts, focusing on how objects interact in a dynamic environment, managing state changes (speed/life), and implementing persistent storage.
+IDE: Eclipse
